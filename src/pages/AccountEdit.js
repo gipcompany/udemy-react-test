@@ -165,6 +165,8 @@ class AccountEdit extends Component {
             <h2>お客様情報</h2>
             <form className={classes.textCenter} onSubmit={e => {
               e.preventDefault();
+              const state = this.state
+              console.log(state)
               update({
                 variables: {
                   sei: this.state.sei,
