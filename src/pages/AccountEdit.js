@@ -93,7 +93,6 @@ class AccountEdit extends Component {
     };
 
     setProfile() {
-
         const { user } = this.props;
         return(
             <table class="table">
@@ -147,7 +146,7 @@ class AccountEdit extends Component {
                             value={ this.state.meiKana ? this.state.meiKana : user.meiKana }
                             onChange={this.handleChange('meiKana')}
                         />
-                    </td>                
+                    </td>
                 </tr>
             </table>
         )
@@ -161,10 +160,10 @@ class AccountEdit extends Component {
             <Mutation mutation={USER_UPDATE_PROFILE}>
                 {(update, { data }) => (
                     <Layout>
-                        <h2>お客様情報</h2>   
+                        <h2>お客様情報</h2>
                         <form className={classes.textCenter}　onSubmit={e => {
                                 e.preventDefault();
-                                update({ variables: { 
+                                update({ variables: {
                                     sei: this.state.sei,
                                     mei: this.state.mei,
                                     seiKana: this.state.seiKana,
