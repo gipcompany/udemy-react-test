@@ -89,12 +89,14 @@ class AccountEdit extends Component {
   }
 
   handleChange = name => event => {
+    const state = this.state
+    console.log({ state })
     this.setState({ [name]: event.target.value })
   };
 
   setProfile() {
     const { user } = this.props;
-    return(
+    return (
       <table class="table">
         <tr>
           <th>氏名(姓)</th>
@@ -104,7 +106,7 @@ class AccountEdit extends Component {
               label="sei"
               class="textField"
               type="text"
-              value={ this.state.sei ? this.state.sei : user.sei }
+              value={this.state.sei ? this.state.sei : user.sei}
               onChange={this.handleChange('sei')}
             />
           </td>
@@ -117,7 +119,7 @@ class AccountEdit extends Component {
               label="mei"
               class="textField"
               type="text"
-              value={ this.state.mei ? this.state.mei : user.mei }
+              value={this.state.mei ? this.state.mei : user.mei}
               onChange={this.handleChange('mei')}
             />
           </td>
@@ -130,7 +132,7 @@ class AccountEdit extends Component {
               label="seiKana"
               class="textField"
               type="text"
-              value={ this.state.seiKana ? this.state.seiKana : user.seiKana }
+              value={this.state.seiKana ? this.state.seiKana : user.seiKana}
               onChange={this.handleChange('seiKana')}
             />
           </td>
@@ -143,51 +145,53 @@ class AccountEdit extends Component {
               label="meiKana"
               class="textField"
               type="text"
-              value={ this.state.meiKana ? this.state.meiKana : user.meiKana }
+              value={this.state.meiKana ? this.state.meiKana : user.meiKana}
               onChange={this.handleChange('meiKana')}
             />
           </td>
         </tr>
       </table>
-      )
-}
-
-
-render() {
-  const { classes } = this.props;
-
-  return (
-    <Mutation mutation={USER_UPDATE_PROFILE}>
-      {(update, { data }) => (
-      <Layout>
-        <h2>お客様情報</h2>
-        <form className={classes.textCenter}　onSubmit={e => {
-          e.preventDefault();
-          update({ variables: {
-          sei: this.state.sei,
-          mei: this.state.mei,
-          seiKana: this.state.seiKana,
-          meiKana: this.state.meiKana,
-          phoneNumber: this.state.phoneNumber,
-          email: this.state.email
-          } });
-          }}>
-          <FormControl class="formControl">
-            <Card className="list listAccount">
-              <CardContent>
-                {this.setProfile()}
-              </CardContent>
-            </Card>
-            <div class="blankArea textCenter">
-              <Button type={'submit'} className={classes.button} class="label labelSuccess">確認する</Button>
-            </div>
-          </FormControl>
-        </form>
-      </Layout>
-      )}
-    </Mutation>
     )
-}
+  }
+
+
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <Mutation mutation={USER_UPDATE_PROFILE}>
+        {(update, { data }) => (
+          <Layout>
+            <h2>お客様情報</h2>
+            <form className={classes.textCenter} onSubmit={e => {
+              e.preventDefault();
+              update({
+                variables: {
+                  sei: this.state.sei,
+                  mei: this.state.mei,
+                  seiKana: this.state.seiKana,
+                  meiKana: this.state.meiKana,
+                  phoneNumber: this.state.phoneNumber,
+                  email: this.state.email
+                }
+              });
+            }}>
+              <FormControl class="formControl">
+                <Card className="list listAccount">
+                  <CardContent>
+                    {this.setProfile()}
+                  </CardContent>
+                </Card>
+                <div class="blankArea textCenter">
+                  <Button type={'submit'} className={classes.button} class="label labelSuccess">確認する</Button>
+                </div>
+              </FormControl>
+            </form>
+          </Layout>
+        )}
+      </Mutation>
+    )
+  }
 }
 
 AccountEdit.propTypes = {
@@ -197,19 +201,19 @@ AccountEdit.propTypes = {
 const mapStateProps = (state) => {
   const addresses = state.events.addresses ? state.events.addresses[0] : '';
   const user = {
-    sei:           state.events.sei,
-    mei:           state.events.mei,
-    seiKana:       state.events.seiKana,
-    meiKana:       state.events.meiKana,
-    email:         state.events.email,
-    phoneNumber:   state.events.phoneNumber,
-    zipCode:       addresses ? state.events.addresses[0].zipCode : '',
-    todouhuken:    addresses ? state.events.addresses[0].todouhuken : '',
-    sikuchouson:   addresses ? state.events.addresses[0].sikuchouson : '',
-    tatemono:      addresses ? state.events.addresses[0].tatemono : '',
-    tikubanchi:    addresses ? state.events.addresses[0].tikubanchi : '',
+    sei: state.events.sei,
+    mei: state.events.mei,
+    seiKana: state.events.seiKana,
+    meiKana: state.events.meiKana,
+    email: state.events.email,
+    phoneNumber: state.events.phoneNumber,
+    zipCode: addresses ? state.events.addresses[0].zipCode : '',
+    todouhuken: addresses ? state.events.addresses[0].todouhuken : '',
+    sikuchouson: addresses ? state.events.addresses[0].sikuchouson : '',
+    tatemono: addresses ? state.events.addresses[0].tatemono : '',
+    tikubanchi: addresses ? state.events.addresses[0].tikubanchi : '',
     residenceType: addresses ? state.events.addresses[0].residenceType.name : '',
-    parkingType:   addresses ? state.events.addresses[0].parkingType.name : '',
+    parkingType: addresses ? state.events.addresses[0].parkingType.name : '',
   }
 
   return { user: user }
